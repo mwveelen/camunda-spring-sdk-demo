@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.incentro.camunda_spring_demo.model.MessageRequest;
+
 import java.util.Map;
 
 @RestController
@@ -33,4 +35,19 @@ public class StartFormRestController {
                 .variables(variables)
                 .send();
     }
+
+    @PostMapping("/send-message")
+    public void sendMessage(@RequestBody MessageRequest messageRequest) {
+
+        LOG.info("Sending message `" + messageRequest.getMessageName() + "` with variables: "
+                + messageRequest.getVariables());
+
+        zeebe
+                .newPublishMessageCommand()
+                .messageName(messageRequest.getMessageName())
+                .correlationKey(messageRequest.getCorrelationKey())
+                .variables(messageRequest.getVariables())
+                .send();
+    }
+
 }
