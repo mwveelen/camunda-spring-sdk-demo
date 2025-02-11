@@ -1,0 +1,17 @@
+# camunda:
+#   client:
+#     mode: saas
+#     auth:
+#       client-id: ?
+#       client-secret: ?
+#     cluster-id: ?
+#     region: bru-2
+
+
+camunda:
+  client:
+    mode: selfManaged
+    auth:
+      client-id: zeebe
+      client-secret: zecret
+      issuer: http://localhost:18080/auth/realms/camunda-platform/protocol/openid-connect/token
